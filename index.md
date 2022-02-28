@@ -1,4 +1,4 @@
-[ABOUT](https://loongyi.github.io/loongyi.github.io/ABOUT.md)
+[ABOUT](https://loongyi.github.io/loongyi.github.io/About.html)
 
 ```markdown
 Syntax highlighted code block
