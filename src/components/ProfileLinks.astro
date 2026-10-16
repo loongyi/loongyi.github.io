@@ -8,7 +8,11 @@ const links = profiles.filter((profile) => profile.href.trim());
 {links.length > 0 && (
   <nav class:list={['profile-links', { 'profile-links-labeled': showLabels }]} aria-label="Contact and profiles">
     {links.map((profile) => (
-      <a class="profile-link" href={profile.href} aria-label={profile.label} title={profile.label}>
+      <a class="profile-link" href={profile.href}
+        target={profile.href.startsWith('mailto:') ? undefined : '_blank'}
+        rel={profile.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+        aria-label={profile.href.startsWith('mailto:') ? profile.label : `${profile.label} (opens in a new tab)`}
+        title={profile.href.startsWith('mailto:') ? profile.label : `${profile.label} (opens in a new tab)`}>
         <span aria-hidden="true">{profile.short}</span>
         {showLabels && <span>{profile.label}</span>}
       </a>

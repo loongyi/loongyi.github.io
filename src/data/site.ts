@@ -15,7 +15,7 @@ export const news: { date: string; text: string; href?: string; linkLabel?: stri
 export const profiles = [
   { label: 'Email', short: '📬', href: 'mailto:loongyi1995@gmail.com' }, // mailto:your@email.com
   { label: 'Google Scholar', short: '🎓', href: 'https://scholar.google.com/citations?user=8ur6-qIAAAAJ&hl=en' },
-  { label: 'CV', short: '📄', href: '/cv.pdf' }, // Add public/cv.pdf, then set href to '/cv.pdf'.
+  { label: 'CV', short: '📄', href: '/CV.pdf' }, // Add public/cv.pdf, then set href to '/cv.pdf'.
   { label: 'GitHub', short: '</>', href: 'https://github.com/loongyi' },
   { label: 'LinkedIn', short: 'in', href: 'https://www.linkedin.com/in/leeloongyi/' },
   { label: 'Youtube', short: '▶️', href: 'https://www.youtube.com/@loongyi48' },
