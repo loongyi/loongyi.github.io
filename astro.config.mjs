@@ -7,7 +7,5 @@ import markdoc from '@astrojs/markdoc';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), markdoc()],
-  site: 'https://loongyi.github.io',
-  base: '/loongyi.github.io'
+  site: 'https://loongyi.github.io'
 });
-

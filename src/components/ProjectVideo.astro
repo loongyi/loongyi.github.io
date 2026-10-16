@@ -3,7 +3,7 @@ import type { ProjectVideo } from '../data/site';
 interface Props { video: ProjectVideo; label?: string; }
 const { video, label = video.title } = Astro.props;
 ---
-<video data-project-video src={video.src} poster={video.poster} autoplay muted loop playsinline controls preload="auto" aria-label={label}>
+<video data-project-video src={video.src} poster={video.poster} muted loop playsinline controls preload="auto" aria-label={label}>
   <a href={video.src}>Download {video.title}</a>
 </video>
 <script>
