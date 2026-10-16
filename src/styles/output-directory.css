@@ -1,0 +1,58 @@
+/* Only the research output directory uses this denser presentation. */
+.output-directory .page-heading { padding: 24px 0 16px; }
+.output-directory .page-heading h1 { font-family: inherit; font-size: 28px; font-weight: 600; letter-spacing: -.025em; line-height: 1.25; margin: 0 0 6px; }
+.output-directory .page-heading .lead { font-size: 14px; line-height: 1.5; margin: 0; max-width: none; }
+.output-directory .output-controls { gap: 10px 12px; padding: 12px; border-radius: 4px; }
+.output-directory .output-controls > div { flex: 1 1 140px; }
+.output-directory .output-controls > .output-categories { flex-basis: 100%; }
+.output-directory .output-controls > .output-search-field { flex: 2 1 220px; }
+.output-directory .filters { gap: 6px; }
+.output-directory .filters button { min-height: 34px; padding: 6px 12px; font-size: 13px; line-height: 1.4; border-radius: 6px; }
+.output-directory .category-count { margin-left: 4px; font-size: 11px; }
+.output-directory .output-controls label { font-size: 12px; margin-bottom: 4px; }
+.output-directory .output-controls input,
+.output-directory .output-controls select { min-height: 36px; padding: 6px 10px; font-size: 14px; }
+.output-directory .output-reset { min-height: 36px; padding: 6px 10px; font-size: 12px; border-radius: 4px; }
+.output-directory #output-count { font-size: 12px; margin: 10px 0; }
+.output-directory .output-list { border-top: 1px solid var(--line); }
+.output-directory .output-card { padding: 16px 0; }
+.output-directory .output-with-image { grid-template-columns: 132px minmax(0, 1fr); gap: 16px; }
+.output-directory .output-content > .eyebrow { display: inline; font-size: 11px; letter-spacing: .04em; line-height: 1.6; margin: 0 8px 0 0; }
+.output-directory .output-status { font-size: 11px; line-height: 1.5; padding: 1px 7px; margin: 0; vertical-align: baseline; }
+.output-directory .output-card h3 { font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1.45; margin: 6px 0 4px; }
+.output-directory .output-authors { font-size: 14px; line-height: 1.5; margin: 3px 0; }
+.output-directory .output-venue { font-size: 13px; line-height: 1.5; margin: 3px 0; }
+.output-directory .output-content > .muted { font-size: 12px; line-height: 1.5; margin: 4px 0; }
+.output-directory .output-links { gap: 6px; margin-top: 6px; }
+.output-directory .output-links a { min-height: 30px; padding: 4px 9px; font-size: 12px; border-radius: 4px; }
+.output-directory .output-tags { gap: 6px; margin: 6px 0; }
+.output-directory .output-tags a { padding: 5px 9px; }
+.output-directory .output-projects { font-size: 13px; line-height: 1.5; margin: 6px 0; }
+.output-directory .output-abstract { margin-top: 6px; }
+.output-directory .output-abstract summary { padding: 6px 0; }
+@media (max-width: 600px) {
+  .output-directory .page-heading { padding: 20px 0 12px; }
+  .output-directory .page-heading h1 { font-size: 24px; }
+  .output-directory .output-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 10px; }
+  .output-directory .output-categories,
+  .output-directory .output-search-field { grid-column: 1 / -1; }
+  .output-directory .filters { gap: 4px; }
+  .output-directory .filters button { min-height: 44px; padding: 6px 9px; font-size: 12px; }
+  .output-directory .output-controls input,
+  .output-directory .output-controls select { min-height: 44px; font-size: 16px; padding: 8px; }
+  .output-directory .output-reset { min-height: 44px; }
+  .output-directory .output-card { padding: 12px 0; }
+  .output-directory .output-with-image { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .output-directory .output-image { max-width: 160px; }
+  .output-directory .output-card h3 { font-size: 16px; }
+  .output-directory .output-links a,
+  .output-directory .output-tags a { min-height: 44px; display: inline-flex; align-items: center; }
+  .output-directory .output-abstract summary { min-height: 44px; padding: 10px 0; }
+}
+@media (pointer: coarse) {
+  .output-directory .filters button,
+  .output-directory .output-controls input,
+  .output-directory .output-controls select,
+  .output-directory .output-reset,
+  .output-directory .output-links a { min-height: 44px; }
+}

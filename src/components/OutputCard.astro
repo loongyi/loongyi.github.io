@@ -1,0 +1,31 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { projects as allProjects } from '../data/site';
+interface Props { entry: CollectionEntry<'outputs'>; compact?: boolean; }
+const { entry, compact = false } = Astro.props;
+const { title, authors, year, type, status, authorNote, venue, doi, links } = entry.data;
+const { image, tags, projects } = entry.data;
+const relatedProjects = allProjects.filter((project) => projects.includes(project.id));
+const { Content } = !compact && entry.body?.trim() ? await render(entry) : { Content: undefined };
+---
+
+<article class:list={['output-card', { 'output-with-image': !!image }]} id={`output-${entry.id}`} data-output data-type={type} data-status={status} data-tags={JSON.stringify(tags)} data-projects={JSON.stringify(projects)} data-search={`${title} ${authors.join(' ')} ${year} ${type} ${status} ${venue} ${tags.join(' ')} ${relatedProjects.map((project) => project.title).join(' ')}`.toLowerCase()}>
+  {image && <img class="output-image" src={image.src} alt={image.alt} loading="lazy" decoding="async" width="640" height="480" />}
+  <div class="output-content">
+  <p class="eyebrow">{type} <span aria-hidden="true">·</span> {year}</p>
+  <span class:list={['output-status', { 'output-status-pending': ['Under review', 'In revision'].includes(status) }]}>{status}</span>
+  <h3>{title}</h3>
+  <p class="output-authors">{authors.map((author, index) => <>{index > 0 && ', '}{author === 'L.Y. Lee' ? <strong>{author}</strong> : author}</>)}</p>
+  {authorNote && <p class="muted">{authorNote}</p>}
+  {venue && <p class="output-venue">{status === 'Under review' || status === 'In revision' ? 'Submitted to: ' : status === 'Accepted' ? 'Accepted for: ' : ''}{venue}</p>}
+  {tags.length > 0 && <div class="output-tags" aria-label="Research topics">{tags.map((tag) => <a href={`/publications/?tag=${encodeURIComponent(tag)}`}>#{tag}</a>)}</div>}
+  {relatedProjects.length > 0 && <p class="output-projects">Related projects: {relatedProjects.map((project, index) => <>{index > 0 && ' · '}<a href={`/projects/${project.id}/`}>{project.title}</a></>)}</p>}
+  {(doi || links.length > 0) && (
+    <div class="output-links" aria-label={`Resources for ${title}`}>
+      {doi && <a href={`https://doi.org/${doi}`}>DOI ↗</a>}
+      {links.map((link) => <a href={link.url}>{link.label} ↗</a>)}
+    </div>
+  )}
+  {Content && <details class="output-abstract"><summary>Abstract & details<span class="sr-only"> for {title}</span></summary><div class="output-prose"><Content /></div></details>}
+  </div>
+</article>

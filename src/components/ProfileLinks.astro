@@ -1,0 +1,17 @@
+---
+import { profiles } from '../data/site';
+interface Props { showLabels?: boolean; }
+const { showLabels = false } = Astro.props;
+const links = profiles.filter((profile) => profile.href.trim());
+---
+
+{links.length > 0 && (
+  <nav class:list={['profile-links', { 'profile-links-labeled': showLabels }]} aria-label="Contact and profiles">
+    {links.map((profile) => (
+      <a class="profile-link" href={profile.href} aria-label={profile.label} title={profile.label}>
+        <span aria-hidden="true">{profile.short}</span>
+        {showLabels && <span>{profile.label}</span>}
+      </a>
+    ))}
+  </nav>
+)}

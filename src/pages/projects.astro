@@ -1,0 +1,37 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/site';
+const topics = ['All', ...new Set(projects.map((project) => project.topic))];
+---
+<SiteLayout title="Projects">
+  <header class="page-heading"><h1>Research Projects.</h1><p class="lead">A closer look at the mechanisms and experiments behind the research.</p></header>
+  <div class="filters" role="group" aria-label="Filter projects by topic" hidden>
+    {topics.map((topic) => <button type="button" data-filter={topic} aria-pressed={topic === 'All' ? 'true' : 'false'}>{topic}</button>)}
+  </div>
+  <p class="project-count muted" role="status" aria-live="polite">{projects.length} projects</p>
+  <div class="project-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
+</SiteLayout>
+<script>
+  const filters = document.querySelector<HTMLElement>('.filters');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-topic]');
+  const count = document.querySelector('.project-count');
+  if (filters) filters.hidden = false;
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      let visible = 0;
+      cards.forEach((card) => {
+        card.hidden = button.dataset.filter !== 'All' && card.dataset.topic !== button.dataset.filter;
+        const video = card.querySelector('video');
+        if (card.hidden) video?.pause();
+        else {
+          visible++;
+          if (video?.autoplay) void video.play().catch(() => {});
+        }
+      });
+      if (count) count.textContent = `${visible} ${visible === 1 ? 'project' : 'projects'}`;
+    });
+  });
+</script>

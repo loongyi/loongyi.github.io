@@ -1,0 +1,38 @@
+---
+import type { ProjectVideo } from '../data/site';
+interface Props { video: ProjectVideo; label?: string; }
+const { video, label = video.title } = Astro.props;
+---
+<video data-project-video src={video.src} poster={video.poster} autoplay muted loop playsinline controls preload="auto" aria-label={label}>
+  <a href={video.src}>Download {video.title}</a>
+</video>
+<script>
+  document.querySelectorAll<HTMLVideoElement>('video[data-project-video]').forEach((video) => {
+    // Native autoplay can be deferred in an inactive tab or embedded browser.
+    // Only help with the initial start; preserve subsequent user playback choices.
+    if (!video.paused && video.currentTime > 0) return;
+    const listeners = new AbortController();
+    const options = { signal: listeners.signal };
+    const started = () => listeners.abort();
+    const start = () => {
+      if (listeners.signal.aborted || video.closest('[hidden]')) return;
+      video.muted = true;
+      void video.play().then(started).catch(() => {
+        // A browser may require a gesture. Keep native controls available and
+        // retry on readiness, visibility, or interaction instead of polling.
+      });
+    };
+    video.addEventListener('playing', started, options);
+    video.addEventListener('canplay', start, options);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') start();
+    }, options);
+    document.addEventListener('pointerdown', (event) => {
+      if (event.target !== video) start();
+    }, options);
+    document.addEventListener('keydown', (event) => {
+      if (event.target !== video) start();
+    }, options);
+    start();
+  });
+</script>
