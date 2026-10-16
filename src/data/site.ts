@@ -22,6 +22,8 @@ export const profiles = [
 ];
 
 export interface ProjectVideo {
+  /** Display width / height; defaults to 16 / 9. Match the source video. */
+  aspectRatio?: string;
   src: string;
   title: string;
   caption: string;
@@ -44,27 +46,27 @@ export const projects: Project[] = [
     title: 'Co-design of Aerial Soft Grippers',
     topic: 'Aerial manipulation',
     description: 'Designing soft grippers together with the aerial platforms that carry them. This research explores how compliant mechanisms, fingertip morphology, and adaptable grasping can help flying robots make contact with objects and interact with their surroundings.',
-    videos: [{ src: '/videos/dronegripper1.mp4', title: 'Aerial soft gripping', caption: 'A soft-gripper demonstration for aerial manipulation.' }],
+    videos: [{ src: '/videos/dronegripper1.mp4', poster: '/images/posters/dronegripper1.jpg', title: 'Aerial soft gripping', caption: 'A soft-gripper demonstration for aerial manipulation.' }],
   },
   {
     id: 'manipulation-under-uncertainty',
     title: 'Robot Manipulation under Uncertainty',
     topic: 'Adaptive manipulation',
     description: 'Exploring how robots can handle objects whose shape, compliance, and contact conditions are not fully known in advance. Manipulating irregular biological objects such as broccoli brings these challenges into focus, motivating adaptable interactions with the physical world.',
-    videos: [{ src: '/videos/broccoli.mp4', title: 'Manipulating broccoli', caption: 'Robot manipulation with an irregular biological object.' }],
+    videos: [{ src: '/videos/broccoli.mp4', poster: '/images/posters/broccoli.jpg', title: 'Manipulating broccoli', caption: 'Robot manipulation with an irregular biological object.' }],
   },
   {
     id: 'tactile-fine-manipulation',
     title: 'Tactile Sensing for Fine Manipulation',
     topic: 'Tactile sensing',
     description: 'Investigating how a sense of touch can guide delicate interactions with deformable objects. Connecting soft tactile sensing with manipulation, this research explores how contact information can inform precise adjustments when vision alone cannot fully describe the interaction.',
-    videos: [{ src: '/videos/elasticbandservo.mp4', title: 'Elastic-band manipulation', caption: 'Fine manipulation of an elastic band in a tactile-sensing experiment.' }],
+    videos: [{ src: '/videos/elasticbandservo.mp4', poster: '/images/posters/elasticbandservo.jpg', title: 'Elastic-band manipulation', caption: 'Fine manipulation of an elastic band in a tactile-sensing experiment.' }],
   },
   {
     id: 'morphologically-intelligent-grippers',
     title: 'Morphologically Intelligent Soft Grippers',
     topic: 'Morphological intelligence',
     description: 'Embedding adaptability into the structure of a soft gripper. Through Fin Ray-inspired geometries and arrays of flexible elements, this research investigates how mechanical design can shape deformation and distribute contact, allowing the body itself to contribute to grasping.',
-    videos: [{ src: '/videos/finaraysim-web.mp4', title: 'Fin Ray structural simulation', caption: 'Simulation exploring deformation in a compliant Fin Ray-inspired structure.' }],
+    videos: [{ src: '/videos/finaraysim-web.mp4', aspectRatio: '1324 / 638', poster: '/images/posters/finaraysim-web.jpg', title: 'Fin Ray structural simulation', caption: 'Simulation exploring deformation in a compliant Fin Ray-inspired structure.' }],
   },
 ];

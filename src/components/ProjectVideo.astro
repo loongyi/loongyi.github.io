@@ -3,36 +3,55 @@ import type { ProjectVideo } from '../data/site';
 interface Props { video: ProjectVideo; label?: string; }
 const { video, label = video.title } = Astro.props;
 ---
-<video data-project-video src={video.src} poster={video.poster} muted loop playsinline controls preload="auto" aria-label={label}>
-  <a href={video.src}>Download {video.title}</a>
-</video>
+<div class="video-player" data-video-player>
+  <video src={video.src} poster={video.poster} style={{ aspectRatio: video.aspectRatio ?? '16 / 9' }} muted playsinline controls preload="none" aria-label={label}>
+    <a href={video.src}>Download {video.title}</a>
+  </video>
+  <button class="play-overlay" type="button" aria-label={`Play ${label}`} hidden>
+    <span class="play-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+    </span>
+    <span>Play video</span>
+  </button>
+  <p class="play-error" role="status" hidden>Unable to start playback. Try the video controls or <a href={video.src}>open the video</a>.</p>
+</div>
 <script>
-  document.querySelectorAll<HTMLVideoElement>('video[data-project-video]').forEach((video) => {
-    // Native autoplay can be deferred in an inactive tab or embedded browser.
-    // Only help with the initial start; preserve subsequent user playback choices.
-    if (!video.paused && video.currentTime > 0) return;
-    const listeners = new AbortController();
-    const options = { signal: listeners.signal };
-    const started = () => listeners.abort();
-    const start = () => {
-      if (listeners.signal.aborted || video.closest('[hidden]')) return;
-      video.muted = true;
-      void video.play().then(started).catch(() => {
-        // A browser may require a gesture. Keep native controls available and
-        // retry on readiness, visibility, or interaction instead of polling.
+  document.querySelectorAll<HTMLElement>('[data-video-player]').forEach((player) => {
+    const video = player.querySelector('video')!;
+    const button = player.querySelector<HTMLButtonElement>('button')!;
+    const error = player.querySelector<HTMLElement>('.play-error')!;
+    button.hidden = false;
+    video.addEventListener('playing', () => {
+      button.hidden = true;
+      error.hidden = true;
+    });
+    button.addEventListener('click', () => {
+      button.hidden = true;
+      error.hidden = true;
+      video.focus();
+      void video.play().catch(() => {
+        button.hidden = false;
+        error.hidden = false;
       });
-    };
-    video.addEventListener('playing', started, options);
-    video.addEventListener('canplay', start, options);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') start();
-    }, options);
-    document.addEventListener('pointerdown', (event) => {
-      if (event.target !== video) start();
-    }, options);
-    document.addEventListener('keydown', (event) => {
-      if (event.target !== video) start();
-    }, options);
-    start();
+    });
   });
 </script>
+<style>
+  .video-player { position: relative; border-radius: 16px; background: var(--wash); }
+  video { border-radius: 16px; }
+  .play-overlay {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    display: inline-flex; align-items: center; gap: 12px;
+    min-height: 56px; padding: 8px 20px 8px 8px; border: 1px solid rgb(255 255 255 / 70%);
+    border-radius: 999px; background: #f5f1e8; color: var(--accent);
+    font: inherit; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer;
+    box-shadow: 0 4px 20px rgb(12 19 17 / 18%);
+    transition: background 160ms ease, box-shadow 160ms ease;
+  }
+  .play-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #f5f1e8; }
+  .play-overlay[hidden], .play-error[hidden] { display: none; }
+  .play-overlay:hover { background: var(--paper); box-shadow: 0 6px 24px rgb(12 19 17 / 25%); }
+  .play-overlay:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+  .play-error { margin: 0; padding: 12px; color: var(--ink); }
+  @media (prefers-reduced-motion: reduce) { .play-overlay { transition: none; } }
+</style>

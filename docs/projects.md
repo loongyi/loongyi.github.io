@@ -21,6 +21,8 @@ For this small portfolio, keep projects in the `projects` array in [site.ts](../
       caption: 'Explain what the viewer is seeing.',
       // Optional still image shown before playback:
       poster: '/images/your-main-demo.jpg',
+      // Match the source dimensions for wider or taller clips:
+      aspectRatio: '1920 / 1080',
     },
     {
       src: '/videos/your-second-demo.mp4',
@@ -35,7 +37,7 @@ Replace example paths with real files; omit `poster` if you have no still image.
 
 ## Related publications
 
-Project videos use `autoplay muted loop playsinline controls` in the shared [ProjectVideo.astro](../src/components/ProjectVideo.astro) player. Muting allows autoplay in most browsers; controls remain available if browser settings block it. The player also retries initial playback on media readiness, page visibility, and user interaction; retries stop once playback starts. To require manual playback, remove `autoplay` and the startup script from the shared player. Remove `loop` to play once.
+Project videos use click-to-play with a visible Play video button over the poster in [ProjectVideo.astro](../src/components/ProjectVideo.astro). `preload="none"` avoids preloading the video; native controls remain available, including without JavaScript. Add a `poster` path to each video entry in [site.ts](../src/data/site.ts). Store preview JPGs in [public/images/posters](../public/images/posters); the URL starts with `/images/posters/`. The initial four posters are frames extracted one second into each clip. Replace them with your preferred stills using the same filenames.
 
 In the frontmatter of the relevant file in [src/content/outputs](../src/content/outputs), add one or more exact project IDs:
 

@@ -67,7 +67,13 @@ p { line-height: 1.7; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
 .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 .project-card { min-width: 0; scroll-margin-top: 24px; }
-.project-media { background: #162a25; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.project-media {
+  padding: 6px;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 8px 24px rgb(27 86 87 / 7%);
+}
 video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
 .project-caption { padding: 20px 0; }
 .project-caption h2 { font-size: 25px; }
