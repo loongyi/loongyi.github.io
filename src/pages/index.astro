@@ -1,5 +1,7 @@
 ﻿---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/profile-original.jpg';
 import ProfileLinks from '../components/ProfileLinks.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import OutputCard from '../components/OutputCard.astro';
@@ -14,8 +16,15 @@ const latestOutputs = (await getVisibleOutputs()).slice(0, 3);
   <section class="home-intro" aria-labelledby="profile-heading">
     <div class="profile-intro">
       <p class="eyebrow"><em>Welcome to my personal site. Thank you for visiting.</em></p>
-      <h1 id="profile-heading">{site.author || 'Your name'}</h1>
-      <p class="profile-affiliation">{[site.role, site.affiliation].filter(Boolean).join(' · ') || 'Robotics & embodied intelligence'}</p>
+      <div class="profile-identity">
+        <div class="profile-portrait">
+          <Image src={portrait} width={640} format="webp" quality={80} alt={`Portrait of ${site.author}`} loading="eager" />
+        </div>
+        <div class="profile-identity-text">
+          <h1 id="profile-heading">{site.author || 'Your name'}</h1>
+          <p class="profile-affiliation">{[site.role, site.affiliation].filter(Boolean).join(' · ') || 'Robotics & embodied intelligence'}</p>
+        </div>
+      </div>
       <p class="profile-bio">{site.bio}</p>
       <div class="profile-interests"><span class="eyebrow">Research interests</span><p>Embodied Intelligence · Soft Robotics · Robot Manipulation · Design Optimization</p></div>
       <section class="contact-block" aria-labelledby="contact-heading">
