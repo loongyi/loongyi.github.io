@@ -5,7 +5,7 @@ export const site = {
   role: 'Senior Research Fellow',
   affiliation: 'Monash University Malaysia',
   description: 'Research in compliant mechanisms, manipulation, and dynamic robotic systems.',
-  bio: 'I am interested in how robots of the future might look and behave quite differently from the robots of today.  Starting in soft robotics, my goal is to develop robots that have intelligence in both their brains and their bodies. This will mean novel robot systems that are robust to unstructured tasks and environments; which includes navigating the most uncertain interactions of all, working with living beings.',
+  bio: 'I am interested in how robots of the future might look and behave quite differently from the robots of today.  Starting in soft robotics, my goal is to develop robots that have intelligence in both their brains and their bodies. This will mean novel robot systems that can robustly manage unstructured tasks and environments; including navigating the most uncertain interactions of them all, working with living beings.',
 };
 
 // Dates use YYYY-MM-DD. The homepage shows the five most recent updates.
